@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.xiaozhang.devicemanagesystem.server.mapper.NumMapper">
+    <update id="update" parameterType="com.xiaozhang.devicemanagesystem.pojo.entity.Num">
+        update number
+            <set>
+                <if test="userNum != null">user_num = #{userNum},</if>
+                <if test="insertNum != null">insert_num = #{insertNum},</if>
+                <if test="deviceNum != null">device_num = #{deviceNum},</if>
+                <if test="borrowNum != null">borrow_num = #{borrowNum},</if>
+                <if test="scrapNum != null">scrap_num = #{scrapNum}</if>
+            </set>
+
+    </update>
+
+</mapper>

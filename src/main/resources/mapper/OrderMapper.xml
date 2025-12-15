@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.xiaozhang.devicemanagesystem.server.mapper.OrderMapper">
+
+    <insert id="inInsertOrder" keyProperty="id" useGeneratedKeys="true">
+        insert into insert_order
+         (code,device_name,device_model,count,price,manufacturer,dept_id,create_time,admin_id)
+        values
+            (#{code} ,#{deviceName} ,#{deviceModel} ,#{count} ,#{price} ,#{manufacturer} ,#{deptId} ,#{createTime} ,#{adminId} )
+    </insert>
+
+    <update id="updateInsertOrder" parameterType="com.xiaozhang.devicemanagesystem.pojo.entity.InsertOrder">
+        update insert_order
+            <set>
+                <if test="code != null and code != ''">
+                    code = #{code},
+                </if>
+                <if test="deviceName != null and deviceName != ''">
+                    deviceName = #{deviceName},
+                </if>
+                <if test="deviceModel != null and deviceModel != ''">
+                    deviceModel = #{deviceModel},
+                </if>
+                <if test="count != null and count != ''">
+                    count = #{count},
+                </if>
+                <if test="price != null and price != ''">
+                    price = #{price},
+                </if>
+                <if test="manufacturer != null and manufacturer != ''">
+                    manufacturer = #{manufacturer},
+                </if>
+                <if test="deptId != null and deptId != ''">
+                    deptId = #{deptId},
+                </if>
+                <if test="createTime != null and createTime != ''">
+                    createTime = #{createTime},
+                </if>
+                <if test="adminId != null and adminId != ''">
+                    adminId = #{adminId},
+                </if>
+            </set>
+        where id = #{id}
+    </update>
+
+    <insert id="inScrapOrder" parameterType="com.xiaozhang.devicemanagesystem.pojo.entity.ScrapOrder">
+        insert into scrap_order
+            (code,device_id,reason,admin_id,create_time)
+            values
+                (#{code},#{deviceId},#{reason},#{adminId},#{createTime})
+    </insert>
+
+    <insert id="inBorrowOrder" keyProperty="id" useGeneratedKeys="true">
+        insert into borrow_order
+            (code,description,create_time,user_id,status,admin_id,handle_time)
+            values
+                (#{code},#{description},#{createTime},#{userId},#{status},#{adminId},#{handleTime})
+    </insert>
+
+    <insert id="inBorrowDetail" parameterType="com.xiaozhang.devicemanagesystem.pojo.entity.BorrowDetail">
+        insert into borrow_detail
+        (borrow_id,device_id,borrow_time,user_id,return_status,return_time)
+        values
+            (#{borrowId},#{deviceId},#{borrowTime},#{userId},#{returnStatus},#{returnTime})
+    </insert>
+
+    <select id="getUserBorrowOrder" resultType="com.xiaozhang.devicemanagesystem.pojo.vo.BorrowOrderVO">
+        select *
+        from v_user_borrow
+        <where>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+    <select id="getDevicesByBorrowId" resultType="com.xiaozhang.devicemanagesystem.pojo.vo.DeviceVO">
+        select v_device.* from v_device,borrow_detail
+        where borrow_detail.borrow_id = #{borrowOrderId} and borrow_detail.device_id = v_device.id
+    </select>
+
+    <select id="getUserBorrowDevices" resultType="com.xiaozhang.devicemanagesystem.pojo.vo.BorrowDetailVO">
+        select * from v_borrow
+        <where>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="returnStatus != null and returnStatus != ''">
+                and return_status = #{returnStatus}
+            </if>
+        </where>
+        order by borrow_time desc
+    </select>
+
+    <select id="getBorrowDetail" resultType="com.xiaozhang.devicemanagesystem.pojo.entity.BorrowDetail">
+        select * from borrow_detail
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="borrowId != null and borrowId != ''">
+                and borrow_id = #{borrowId}
+            </if>
+            <if test="deviceId != null and deviceId != ''">
+                and device_id = #{deviceId}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="returnStatus != null and returnStatus != ''">
+                and return_status = #{returnStatus}
+            </if>
+
+        </where>
+    </select>
+
+
+    <update id="updateBorrowDetail" parameterType="com.xiaozhang.devicemanagesystem.pojo.entity.BorrowDetail">
+        update borrow_detail
+            <set>
+                <if test="borrowId != null and borrowId != ''">
+                     borrow_id = #{borrowId},
+                </if>
+                <if test="deviceId != null and deviceId != ''">
+                     device_id = #{deviceId},
+                </if>
+                <if test="userId != null and userId != ''">
+                     user_id = #{userId},
+                </if>
+                <if test="returnStatus != null and returnStatus != ''">
+                     return_status = #{returnStatus},
+                </if>
+            </set>
+    </update>
+</mapper>

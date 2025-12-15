@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.xiaozhang.devicemanagesystem.server.mapper.DeviceMapper">
+
+    <select id="page" resultType="com.xiaozhang.devicemanagesystem.pojo.vo.DeviceVO">
+        select * from v_device
+        <where>
+            <if test="deviceName != null and deviceName != ''">
+                and device_name like concat("%",#{deviceName},"%")
+            </if>
+            <if test="deviceStatus != null and deviceStatus != ''">
+                and status = #{deviceStatus}
+            </if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="com.xiaozhang.devicemanagesystem.pojo.entity.Device">
+        update device
+            <set>
+                <if test="code != null and code != ''">
+                    code = #{code},
+                </if>
+                <if test="name != null and name != ''">
+                    name = #{name},
+                </if>
+                <if test="model != null and model != ''">
+                    model = #{model},
+                </if>
+                <if test="status != null and status != ''">
+                    status = #{status},
+                </if>
+                <if test="insertOrderId != null and insertOrderId != ''">
+                    insert_order_id = #{insertOrderId},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime}
+                </if>
+            </set>
+        where id = #{id}
+    </update>
+</mapper>
