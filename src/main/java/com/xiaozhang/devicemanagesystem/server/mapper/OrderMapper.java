@@ -1,17 +1,12 @@
 package com.xiaozhang.devicemanagesystem.server.mapper;
 
 import com.github.pagehelper.Page;
-import com.xiaozhang.devicemanagesystem.pojo.dto.UserBorrowOrderPageDTO;
-import com.xiaozhang.devicemanagesystem.pojo.dto.UserDevicesPageDTO;
-import com.xiaozhang.devicemanagesystem.pojo.entity.BorrowDetail;
-import com.xiaozhang.devicemanagesystem.pojo.entity.BorrowOrder;
-import com.xiaozhang.devicemanagesystem.pojo.entity.InsertOrder;
-import com.xiaozhang.devicemanagesystem.pojo.entity.ScrapOrder;
-import com.xiaozhang.devicemanagesystem.pojo.vo.BorrowDetailVO;
-import com.xiaozhang.devicemanagesystem.pojo.vo.BorrowOrderVO;
-import com.xiaozhang.devicemanagesystem.pojo.vo.DeviceVO;
+import com.xiaozhang.devicemanagesystem.pojo.dto.*;
+import com.xiaozhang.devicemanagesystem.pojo.entity.*;
+import com.xiaozhang.devicemanagesystem.pojo.vo.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -49,10 +44,10 @@ public interface OrderMapper {
 
     /**
      * 查询用户借条信息
-     * @param userBorrowOrderPageDTO
+     * @param borrowOrderPageDTO
      * @return
      */
-    Page<BorrowOrderVO> getUserBorrowOrder(UserBorrowOrderPageDTO userBorrowOrderPageDTO);
+    Page<BorrowOrderVO> getBorrowOrder(BorrowOrderPageDTO borrowOrderPageDTO);
 
     /**
      * 根据借条查询借用的设备
@@ -80,4 +75,67 @@ public interface OrderMapper {
      * @param borrowDetail
      */
     void updateBorrowDetail(BorrowDetail borrowDetail);
+
+    /**
+     * 查询用户反馈信息
+     * @param feedBackPageDTO
+     * @return
+     */
+    Page<FeedBackVO> getFeedbacks(FeedBackPageDTO feedBackPageDTO);
+
+    /**
+     * 添加用户反馈表
+     * @param feedbackOrder
+     */
+    void inFeedbackOrder(FeedbackOrder feedbackOrder);
+
+    /**
+     * 根据id查询借条信息
+     * @param id
+     * @return
+     */
+    @Select("select * from borrow_order where id = #{id}")
+    BorrowOrder getBorrowOrderById(Long id);
+
+    /**
+     * 根据借条id查询借条详细信息
+     * @param id
+     * @return
+     */
+    @Select("select * from borrow_detail where borrow_id = #{id}")
+    List<BorrowDetail> getBorrowDetailsByBorrowId(Long id);
+
+    /**
+     * 修改借条
+     * @param borrowOrder
+     */
+    void updateBorrowOrder(BorrowOrder borrowOrder);
+
+    /**
+     * 根据id查询反馈信息
+     * @param feedbackId
+     * @return
+     */
+    @Select("select * from feedback_order where id = #{feedbackId} ")
+    FeedbackOrder getFeedbackById(Long feedbackId);
+
+    /**
+     * 修改反馈表
+     * @param feedbackOrder
+     */
+    void updateFeedbackOrder(FeedbackOrder feedbackOrder);
+
+    /**
+     * 分页查询入库单
+     * @param insertOrderPageDTO
+     * @return
+     */
+    Page<InsertOrderVO> getInsertOrders(InsertOrderPageDTO insertOrderPageDTO);
+
+    /**
+     * 分页查询报废表
+     * @param scrapOrderPageDTO
+     * @return
+     */
+    Page<ScrapOrderVO> getScrapOrders(ScrapOrderPageDTO scrapOrderPageDTO);
 }

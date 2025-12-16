@@ -8,4 +8,5 @@ import java.io.Serializable;
 public class BackDeviceDTO implements Serializable {
     private Long userId;
     private Long deviceId;
+    private Long borrowId;
 }

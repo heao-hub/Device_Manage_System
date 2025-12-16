@@ -1,10 +1,7 @@
 package com.xiaozhang.devicemanagesystem.server.service;
 
 import com.xiaozhang.devicemanagesystem.common.result.PageResult;
-import com.xiaozhang.devicemanagesystem.pojo.dto.BackDeviceDTO;
-import com.xiaozhang.devicemanagesystem.pojo.dto.BorrowDTO;
-import com.xiaozhang.devicemanagesystem.pojo.dto.UserBorrowOrderPageDTO;
-import com.xiaozhang.devicemanagesystem.pojo.dto.UserDevicesPageDTO;
+import com.xiaozhang.devicemanagesystem.pojo.dto.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,10 +15,10 @@ public interface BorrowService {
 
     /**
      * 查询用户借条信息
-     * @param userBorrowOrderPageDTO
+     * @param borrowOrderPageDTO
      * @return
      */
-    PageResult getUserBorrowOrders(UserBorrowOrderPageDTO userBorrowOrderPageDTO);
+    PageResult getUserBorrowOrders(BorrowOrderPageDTO borrowOrderPageDTO);
 
     /**
      * 根据借条id查询设备

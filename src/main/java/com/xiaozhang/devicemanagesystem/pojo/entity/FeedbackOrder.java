@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class FeedbackOrder {
     private Long id;
+    private String code;
     private Long deviceId;
     private String deviceProblem;
     private Long userId;

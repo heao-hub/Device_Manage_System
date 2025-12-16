@@ -2,10 +2,7 @@ package com.xiaozhang.devicemanagesystem.server.controller;
 
 import com.xiaozhang.devicemanagesystem.common.result.PageResult;
 import com.xiaozhang.devicemanagesystem.common.result.Result;
-import com.xiaozhang.devicemanagesystem.pojo.dto.BackDeviceDTO;
-import com.xiaozhang.devicemanagesystem.pojo.dto.BorrowDTO;
-import com.xiaozhang.devicemanagesystem.pojo.dto.UserBorrowOrderPageDTO;
-import com.xiaozhang.devicemanagesystem.pojo.dto.UserDevicesPageDTO;
+import com.xiaozhang.devicemanagesystem.pojo.dto.*;
 import com.xiaozhang.devicemanagesystem.server.service.BorrowService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +34,14 @@ public class BorrowController {
 
     /**
      * 查询用户的借条信息
-     * @param userBorrowOrderPageDTO
+     * @param borrowOrderPageDTO
      * @return
      */
     @GetMapping("/user-order/page")
-    public Result<PageResult> getBorrowOrdersByUserId(UserBorrowOrderPageDTO userBorrowOrderPageDTO){
-        log.info("查询用户的借条,{}",userBorrowOrderPageDTO);
+    public Result<PageResult> getBorrowOrdersByUserId(BorrowOrderPageDTO borrowOrderPageDTO){
+        log.info("查询用户的借条,{}",borrowOrderPageDTO);
 
-        PageResult pageResult = borrowService.getUserBorrowOrders(userBorrowOrderPageDTO);
+        PageResult pageResult = borrowService.getUserBorrowOrders(borrowOrderPageDTO);
         return Result.success(pageResult);
     }
 

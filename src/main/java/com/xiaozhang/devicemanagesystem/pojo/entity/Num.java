@@ -13,4 +13,5 @@ public class Num {
     private int insertNum;
     private int borrowNum;
     private int scrapNum;
+    private int feedbackNum;
 }

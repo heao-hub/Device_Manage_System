@@ -128,15 +128,6 @@ public class DeviceServiceImpl implements DeviceService {
         device.setModel(model);
 
         deviceMapper.update(device);
-
-        if (!name.equals(deviceVO.getDeviceName()) || !model.equals(deviceVO.getDeviceModel())) {
-            InsertOrder insertOrder = new InsertOrder();
-            insertOrder.setId(deviceVO.getInsertOrderId());
-            insertOrder.setDeviceName(name);
-            insertOrder.setDeviceModel(model);
-            insertOrder.setDeptId(deptId);
-            orderMapper.updateInsertOrder(insertOrder);
-        }
     }
 
     /**

@@ -87,12 +87,12 @@ public class BorrowServiceImpl implements BorrowService {
 
     /**
      * 查询用户借条信息
-     * @param userBorrowOrderPageDTO
+     * @param borrowOrderPageDTO
      * @return
      */
-    public PageResult getUserBorrowOrders(UserBorrowOrderPageDTO userBorrowOrderPageDTO) {
-        PageHelper.startPage(userBorrowOrderPageDTO.getPage(),userBorrowOrderPageDTO.getPageSize());
-        Page<BorrowOrderVO> list = orderMapper.getUserBorrowOrder(userBorrowOrderPageDTO);
+    public PageResult getUserBorrowOrders(BorrowOrderPageDTO borrowOrderPageDTO) {
+        PageHelper.startPage(borrowOrderPageDTO.getPage(),borrowOrderPageDTO.getPageSize());
+        Page<BorrowOrderVO> list = orderMapper.getBorrowOrder(borrowOrderPageDTO);
         long total = list.getTotal();
         List<BorrowOrderVO> records = list.getResult();
         return new PageResult((int)total,records);

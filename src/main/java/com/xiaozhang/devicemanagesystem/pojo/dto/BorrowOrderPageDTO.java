@@ -11,6 +11,7 @@ public class BorrowOrderPageDTO implements Serializable {
     private int page;
     private int pageSize;
     private int status;
+    private Long userId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime beginTime;
