@@ -263,5 +263,52 @@
         </where>
     </select>
 
+    <select id="getInsertCountByMap" resultType="Integer">
+        select count(*) from insert_order
+        <where>
+            <if test="beginTime != null">
+                and create_time &gt; #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and create_time &lt; #{endTime}
+            </if>
+        </where>
+    </select>
 
+
+    <select id="getBorrowCountByMap" resultType="Integer">
+        select count(*) from borrow_order
+        <where>
+            <if test="beginTime != null">
+                and create_time &gt; #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and create_time &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getFeedbackCountByMap" resultType="Integer">
+        select count(*) from feedback_order
+        <where>
+            <if test="beginTime != null">
+                and create_time &gt; #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and create_time &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getScrapCountByMap" resultType="Integer">
+        select count(*) from scrap_order
+        <where>
+            <if test="beginTime != null">
+                and create_time &gt; #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and create_time &lt; #{endTime}
+            </if>
+        </where>
+    </select>
 </mapper>

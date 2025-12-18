@@ -20,12 +20,19 @@ import com.xiaozhang.devicemanagesystem.server.service.BorrowService;
 import com.xiaozhang.devicemanagesystem.server.service.DeviceService;
 import com.xiaozhang.devicemanagesystem.server.service.FeedbackService;
 import com.xiaozhang.devicemanagesystem.server.service.OrderService;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.ognl.Ognl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -189,6 +196,170 @@ public class OrderServiceImpl implements OrderService {
         long total = list.getTotal();
         List<ScrapOrderVO> records = list.getResult();
         return new PageResult((int) total,records);
+    }
+
+    /**
+     * 统计入库单数据
+     * @param begin
+     * @param end
+     * @return
+     */
+    public InsertOrderReportVO getInsertStatistics(LocalDate begin, LocalDate end) {
+        // 创建日期列表
+        List<LocalDate> dateList = new ArrayList<>();
+        dateList.add(begin);
+        while(!begin.equals(end)){
+            begin = begin.plusDays(1);
+            dateList.add(begin);
+        }
+
+        // 创建入库单列表
+        List<Integer> newInsertOrderList = new ArrayList<>();
+        List<Integer> totalInsertOrderList = new ArrayList<>();
+
+        for (LocalDate date : dateList) {
+            LocalDateTime beginTime = LocalDateTime.of(date, LocalTime.MIN);
+            LocalDateTime endTime = LocalDateTime.of(date, LocalTime.MAX);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("endTime",endTime);
+            Integer totalCount = orderMapper.getInsertCountByMap(map);
+
+            map.put("beginTime",beginTime);
+            Integer newCount = orderMapper.getInsertCountByMap(map);
+            totalInsertOrderList.add(totalCount);
+            newInsertOrderList.add(newCount);
+        }
+
+        return InsertOrderReportVO
+                .builder()
+                .dateList(StringUtils.join(dateList,","))
+                .newInsertOrderList(StringUtils.join(newInsertOrderList,","))
+                .totalInsertOrderList(StringUtils.join(totalInsertOrderList,","))
+                .build();
+    }
+
+    /**
+     * 统计借条数据
+     * @param begin
+     * @param end
+     * @return
+     */
+    public BorrowOrderReportVO getBorrowStatistics(LocalDate begin, LocalDate end) {
+        // 创建日期列表
+        List<LocalDate> dateList = new ArrayList<>();
+        dateList.add(begin);
+        while(!begin.equals(end)){
+            begin = begin.plusDays(1);
+            dateList.add(begin);
+        }
+
+        // 创建借条列表
+        List<Integer> newBorrowOrderList = new ArrayList<>();
+        List<Integer> totalBorrowOrderList = new ArrayList<>();
+
+        for (LocalDate date : dateList) {
+            LocalDateTime beginTime = LocalDateTime.of(date, LocalTime.MIN);
+            LocalDateTime endTime = LocalDateTime.of(date, LocalTime.MAX);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("endTime",endTime);
+            Integer totalCount = orderMapper.getBorrowCountByMap(map);
+
+            map.put("beginTime",beginTime);
+            Integer newCount = orderMapper.getBorrowCountByMap(map);
+            totalBorrowOrderList.add(totalCount);
+            newBorrowOrderList.add(newCount);
+        }
+
+        return BorrowOrderReportVO
+                .builder()
+                .dateList(StringUtils.join(dateList,","))
+                .newBorrowOrderList(StringUtils.join(newBorrowOrderList,","))
+                .totalBorrowOrderList(StringUtils.join(totalBorrowOrderList,","))
+                .build();
+    }
+
+    /**
+     * 统计反馈单数据
+     * @param begin
+     * @param end
+     * @return
+     */
+    public FeedbackOrderReportVO getFeedbackStatistics(LocalDate begin, LocalDate end) {
+        // 创建日期列表
+        List<LocalDate> dateList = new ArrayList<>();
+        dateList.add(begin);
+        while(!begin.equals(end)){
+            begin = begin.plusDays(1);
+            dateList.add(begin);
+        }
+
+        // 创建反馈单列表
+        List<Integer> newFeedbackOrderList = new ArrayList<>();
+        List<Integer> totalFeedbackOrderList = new ArrayList<>();
+
+        for (LocalDate date : dateList) {
+            LocalDateTime beginTime = LocalDateTime.of(date, LocalTime.MIN);
+            LocalDateTime endTime = LocalDateTime.of(date, LocalTime.MAX);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("endTime",endTime);
+            Integer totalCount = orderMapper.getFeedbackCountByMap(map);
+
+            map.put("beginTime",beginTime);
+            Integer newCount = orderMapper.getFeedbackCountByMap(map);
+            totalFeedbackOrderList.add(totalCount);
+            newFeedbackOrderList.add(newCount);
+        }
+
+        return FeedbackOrderReportVO
+                .builder()
+                .dateList(StringUtils.join(dateList,","))
+                .newFeedbackOrderList(StringUtils.join(newFeedbackOrderList,","))
+                .totalFeedbackOrderList(StringUtils.join(totalFeedbackOrderList,","))
+                .build();
+    }
+
+    /**
+     * 统计报废单数据
+     * @param begin
+     * @param end
+     * @return
+     */
+    public ScrapOrderReportVO getScrapStatistics(LocalDate begin, LocalDate end) {
+        // 创建日期列表
+        List<LocalDate> dateList = new ArrayList<>();
+        dateList.add(begin);
+        while(!begin.equals(end)){
+            begin = begin.plusDays(1);
+            dateList.add(begin);
+        }
+
+        // 创建报废单列表
+        List<Integer> newScrapOrderList = new ArrayList<>();
+        List<Integer> totalScrapOrderList = new ArrayList<>();
+
+        for (LocalDate date : dateList) {
+            LocalDateTime beginTime = LocalDateTime.of(date, LocalTime.MIN);
+            LocalDateTime endTime = LocalDateTime.of(date, LocalTime.MAX);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("endTime",endTime);
+            Integer totalCount = orderMapper.getScrapCountByMap(map);
+
+            map.put("beginTime",beginTime);
+            Integer newCount = orderMapper.getScrapCountByMap(map);
+            totalScrapOrderList.add(totalCount);
+            newScrapOrderList.add(newCount);
+        }
+
+        return ScrapOrderReportVO
+                .builder()
+                .dateList(StringUtils.join(dateList,","))
+                .newScrapOrderList(StringUtils.join(newScrapOrderList,","))
+                .totalScrapOrderList(StringUtils.join(totalScrapOrderList,","))
+                .build();
     }
 
 

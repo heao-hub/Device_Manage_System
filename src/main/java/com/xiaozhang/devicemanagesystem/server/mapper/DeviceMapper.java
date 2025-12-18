@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+import java.util.Map;
+
 @Mapper
 public interface DeviceMapper {
     /**
@@ -38,4 +41,18 @@ public interface DeviceMapper {
      * @param device
      */
     void update(Device device);
+
+    /**
+     * 查询不同状态的设备数
+     * @return
+     */
+    @Select("select count(*) from device group by status")
+    List<Integer> getCountByStatus();
+
+    /**
+     * 统计设备数据
+     * @param map
+     * @return
+     */
+    Integer getDeviceCountByMap(Map<String, Object> map);
 }

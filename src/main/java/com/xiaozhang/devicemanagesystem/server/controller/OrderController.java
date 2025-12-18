@@ -4,10 +4,17 @@ import com.github.pagehelper.Page;
 import com.xiaozhang.devicemanagesystem.common.result.PageResult;
 import com.xiaozhang.devicemanagesystem.common.result.Result;
 import com.xiaozhang.devicemanagesystem.pojo.dto.*;
+import com.xiaozhang.devicemanagesystem.pojo.vo.BorrowOrderReportVO;
+import com.xiaozhang.devicemanagesystem.pojo.vo.FeedbackOrderReportVO;
+import com.xiaozhang.devicemanagesystem.pojo.vo.InsertOrderReportVO;
+import com.xiaozhang.devicemanagesystem.pojo.vo.ScrapOrderReportVO;
 import com.xiaozhang.devicemanagesystem.server.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @Slf4j
@@ -94,4 +101,63 @@ public class OrderController {
         return Result.success(result);
     }
 
+    /**
+     * 统计入库单数据
+     * @param begin
+     * @param end
+     * @return
+     */
+    @GetMapping("/statistics/insert")
+    public Result<InsertOrderReportVO> insertOrderStatistics(
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end) {
+        log.info("统计入库单数据,{},{}",begin,end);
+        InsertOrderReportVO  report = orderService.getInsertStatistics(begin,end);
+        return Result.success(report);
+    }
+
+    /**
+     * 统计借条数据
+     * @param begin
+     * @param end
+     * @return
+     */
+    @GetMapping("/statistics/borrow")
+    public Result<BorrowOrderReportVO> borrowOrderStatistics(
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
+        log.info("统计借条数据,{},{}",begin,end);
+        BorrowOrderReportVO  report = orderService.getBorrowStatistics(begin,end);
+        return Result.success(report);
+    }
+
+    /**
+     * 统计反馈单数据
+     * @param begin
+     * @param end
+     * @return
+     */
+    @GetMapping("/statistics/feedback")
+    public Result<FeedbackOrderReportVO> feedbackOrderStatistics(
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
+        log.info("统计反馈单数据,{},{}",begin,end);
+        FeedbackOrderReportVO  report = orderService.getFeedbackStatistics(begin,end);
+        return Result.success(report);
+    }
+
+    /**
+     * 统计报废单数据
+     * @param begin
+     * @param end
+     * @return
+     */
+    @GetMapping("/statistics/scrap")
+    public Result<ScrapOrderReportVO> scrapOrderStatistics(
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
+        log.info("统计报废单数据,{},{}",begin,end);
+        ScrapOrderReportVO  report = orderService.getScrapStatistics(begin,end);
+        return Result.success(report);
+    }
 }

@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -138,4 +139,32 @@ public interface OrderMapper {
      * @return
      */
     Page<ScrapOrderVO> getScrapOrders(ScrapOrderPageDTO scrapOrderPageDTO);
+
+    /**
+     * 统计入库单数据
+     * @param map
+     * @return
+     */
+    Integer getInsertCountByMap(Map<String, Object> map);
+
+    /**
+     * 统计借条数据
+     * @param map
+     * @return
+     */
+    Integer getBorrowCountByMap(Map<String, Object> map);
+
+    /**
+     * 统计反馈表数据
+     * @param map
+     * @return
+     */
+    Integer getFeedbackCountByMap(Map<String, Object> map);
+
+    /**
+     * 统计报废单数据
+     * @param map
+     * @return
+     */
+    Integer getScrapCountByMap(Map<String, Object> map);
 }
