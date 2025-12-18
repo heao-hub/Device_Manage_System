@@ -50,6 +50,7 @@ public class UserController {
         // 登录成功，生成jwt令牌
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.USER_ID,user.getId());
+        claims.put(JwtClaimsConstant.USER_ROLE,user.getType());
 
         String token = JwtUtil.createJWT(
                 jwtProperties.getSecretKey(),
