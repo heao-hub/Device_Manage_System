@@ -15,4 +15,7 @@ import java.io.Serializable;
 public class ScrapOrderVO extends ScrapOrder implements Serializable {
     private String adminCode;
     private String adminName;
+    private String deviceName;
+    private String deviceCode;
+    private String deviceModel;
 }

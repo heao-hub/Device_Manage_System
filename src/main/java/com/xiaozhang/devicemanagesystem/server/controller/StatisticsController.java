@@ -44,11 +44,9 @@ public class StatisticsController {
      * @return
      */
     @GetMapping("/status/device")
-    public Result<DeviceStatusReportVO> deviceStatusStatistics(
-            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
-            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
-        log.info("统计不同状态的设备数据,{},{}",begin,end);
-        DeviceStatusReportVO  report = statisticsService.getDeviceStatusStatistics(begin,end);
+    public Result<DeviceStatusReportVO> deviceStatusStatistics(){
+        log.info("统计不同状态的设备数据");
+        DeviceStatusReportVO  report = statisticsService.getDeviceStatusStatistics();
         return Result.success(report);
     }
 }

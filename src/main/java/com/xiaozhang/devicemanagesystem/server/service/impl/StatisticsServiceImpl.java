@@ -6,6 +6,7 @@ import com.xiaozhang.devicemanagesystem.pojo.vo.DeviceStatusReportVO;
 import com.xiaozhang.devicemanagesystem.pojo.vo.ScrapOrderReportVO;
 import com.xiaozhang.devicemanagesystem.server.mapper.DeviceMapper;
 import com.xiaozhang.devicemanagesystem.server.service.StatisticsService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class StatisticsServiceImpl implements StatisticsService {
     @Autowired
@@ -70,15 +72,15 @@ public class StatisticsServiceImpl implements StatisticsService {
      * @param end
      * @return
      */
-    public DeviceStatusReportVO getDeviceStatusStatistics(LocalDate begin, LocalDate end) {
+    public DeviceStatusReportVO getDeviceStatusStatistics() {
         List<Integer> countList = deviceMapper.getCountByStatus();
-
+        log.info("数据库查询结果,{}",countList);
         Integer onUseCount = countList.get(StatusConstant.DEVICE_ON_USE - 1);
         Integer outUseCount = countList.get(StatusConstant.DEVICE_OUT_USE - 1);
         Integer repairCount = countList.get(StatusConstant.DEVICE_REPAIR - 1);
         Integer scrapCount = countList.get(StatusConstant.DEVICE_SCRAP - 1);
         Integer totalCount = onUseCount+outUseCount+repairCount+scrapCount;
-
+        log.info("{},{},{},{},{},",onUseCount,outUseCount,repairCount,scrapCount,totalCount);
         return DeviceStatusReportVO
                 .builder()
                 .onUseDeviceCount(onUseCount)

@@ -18,9 +18,8 @@ public interface StatisticsService {
 
     /**
      * 统计不同状态的设备数据
-     * @param begin
-     * @param end
+     *
      * @return
      */
-    DeviceStatusReportVO getDeviceStatusStatistics(LocalDate begin, LocalDate end);
+    DeviceStatusReportVO getDeviceStatusStatistics();
 }

@@ -15,4 +15,5 @@ import java.io.Serializable;
 public class InsertOrderVO extends InsertOrder implements Serializable {
     private  String adminCode;
     private String adminName;
+    private String deptName;
 }

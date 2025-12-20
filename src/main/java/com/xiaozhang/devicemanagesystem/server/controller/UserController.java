@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * 用户管理controller
@@ -50,7 +49,7 @@ public class UserController {
         // 登录成功，生成jwt令牌
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.USER_ID,user.getId());
-        claims.put(JwtClaimsConstant.USER_ROLE,user.getType());
+        claims.put(JwtClaimsConstant.USER_TYPE,user.getType());
 
         String token = JwtUtil.createJWT(
                 jwtProperties.getSecretKey(),
