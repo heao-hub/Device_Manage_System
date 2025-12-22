@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 class DeviceManageSystemApplicationTests {
@@ -15,11 +16,8 @@ class DeviceManageSystemApplicationTests {
     private DeviceMapper deviceMapper;
     @Test
     void contextLoads() {
-
-        List<Integer> counts = new ArrayList<>();
-
-        counts = deviceMapper.getCountByStatus();
-        System.out.println(counts);
+        List<Integer> countByStatus = deviceMapper.getCountByStatus();
+        System.out.println(countByStatus);
     }
 
 }

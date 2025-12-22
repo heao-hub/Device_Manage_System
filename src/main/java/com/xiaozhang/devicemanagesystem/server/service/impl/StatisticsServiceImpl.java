@@ -75,8 +75,8 @@ public class StatisticsServiceImpl implements StatisticsService {
     public DeviceStatusReportVO getDeviceStatusStatistics() {
         List<Integer> countList = deviceMapper.getCountByStatus();
         log.info("数据库查询结果,{}",countList);
-        Integer onUseCount = countList.get(StatusConstant.DEVICE_ON_USE);
-        Integer outUseCount = countList.get(StatusConstant.DEVICE_OUT_USE - 2);
+        Integer onUseCount = countList.get(StatusConstant.DEVICE_ON_USE - 1);
+        Integer outUseCount = countList.get(StatusConstant.DEVICE_OUT_USE - 1);
         Integer repairCount = countList.get(StatusConstant.DEVICE_REPAIR - 1);
         Integer scrapCount = countList.get(StatusConstant.DEVICE_SCRAP - 1);
         Integer totalCount = onUseCount+outUseCount+repairCount+scrapCount;

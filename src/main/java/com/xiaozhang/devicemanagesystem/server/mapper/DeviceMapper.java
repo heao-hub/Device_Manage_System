@@ -46,7 +46,7 @@ public interface DeviceMapper {
      * 查询不同状态的设备数
      * @return
      */
-    @Select("select count(*) from device group by status")
+    @Select("select count(*) from device group by status order by status")
     List<Integer> getCountByStatus();
 
     /**

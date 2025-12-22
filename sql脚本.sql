@@ -101,15 +101,16 @@ CREATE TABLE feedback_order (
                                       handle_time DATETIME DEFAULT NULL COMMENT '处理时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='设备问题反馈表';
 drop table feedback_order;
--- 9. 日志表
-CREATE TABLE operation_log (
-                                 id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '日志主键ID',
-                                 device_id BIGINT NOT NULL COMMENT '关联设备表编号',
-                                 operation_type VARCHAR(50) NOT NULL COMMENT '操作类型（如入库/借用/报废/反馈）',
-                                 operator_id BIGINT NOT NULL COMMENT '关联用户表ID（操作人）',
-                                 operation_time DATETIME COMMENT '操作时间',
-                                 operation_desc VARCHAR(200) DEFAULT NULL COMMENT '操作描述（可选）'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='设备操作日志表';
+
+create table number(
+    user_num int default 0 comment '用户顺序号',
+    insert_num int default 0 comment '入库单顺序号',
+    device_num int default 0 comment '设备顺序号',
+    borrow_num int default 0 comment '借条顺序号',
+    scrap_num int default 0 comment '报废单顺序号',
+);
+
+
 
 create view v_user as
     select user.*,dept.name as dept_name
@@ -185,14 +186,7 @@ insert into dept (code,name,create_time,update_time) values
                                                          ('D012','化学实验中心',NOW(),NOW()),
                                                          ('D013','物理实验中心',NOW(),NOW());
 
-create table number(
-    user_num int default 0 comment '用户顺序号',
-    insert_num int default 0 comment '入库单顺序号',
-    device_num int default 0 comment '设备顺序号',
-    borrow_num int default 0 comment '借条顺序号',
-    scrap_num int default 0 comment '报废单顺序号',
 
-);
 insert into number values (1,0,0,0,0,0);
 insert into user (code, username, type, dept_id, create_time, update_time)
 values ("U20251216000000","curry",1,1,now(),now());
