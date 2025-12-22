@@ -3,6 +3,8 @@ package com.xiaozhang.devicemanagesystem.server.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xiaozhang.devicemanagesystem.common.constant.ExceptionConstant;
+import com.xiaozhang.devicemanagesystem.common.context.BaseContext;
+import com.xiaozhang.devicemanagesystem.common.exception.DeleteException;
 import com.xiaozhang.devicemanagesystem.common.exception.PasswordWrongException;
 import com.xiaozhang.devicemanagesystem.common.exception.UserNotFoundException;
 import com.xiaozhang.devicemanagesystem.common.result.PageResult;
@@ -110,6 +112,10 @@ public class UserServiceImpl implements UserService {
      * @param id
      */
     public void delete(Long id) {
+        Long currentId = BaseContext.getCurrentId();
+        if(currentId.equals(id)){
+            throw new DeleteException(ExceptionConstant.DELETE_EXCEPTION);
+        }
         userMapper.delete(id);
     }
 

@@ -14,6 +14,7 @@ public class ExceptionConstant {
     public static final String BORROW_NOT_FOUND = "借条不存在";
     public static final String DEVICE_RETURN_STATUS_ERROR = "设备归还状态错误";
     public static final String FEEDBACK_ORDER_NOT_FOUNT = "反馈信息不存在";
+    public static final String DELETE_EXCEPTION = "不能删除自身信息";
 
 
 }
